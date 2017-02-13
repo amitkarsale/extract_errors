@@ -38,14 +38,13 @@ class ParseHtml
 		end
 			@error_msgs.each_with_index do |error,i|
 				@error = Error.new("message" => error, "occured_at" => @occured_at[i], "case_number" => @case_no)
+				status = "Parsed Successfully"
 				if @error.save
 					next
 				else
-					"Sorry there was an error saving record."
+					status = "Parsing Failed"
 				end
-				# p "==============================================="
-				# p error
-				# p "==============================================="
+				status
 			end
 	end
 end

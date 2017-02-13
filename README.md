@@ -5,6 +5,6 @@ Initial Description: Its a lightweight Sinatra app to parse the task export logs
 # App Structure
 
 '/' => root location of the app displays all the errors occured along with their occurance date and case number.(unpolished UI)
-'/feed_data' => is to parse and feed the data into the db.
+'/feed_data' => is to parse and feed the data into the db. #todo make it re-run safe and provide a UI with confirmation to parse and insert data.
 
 # Note: App is still under construction

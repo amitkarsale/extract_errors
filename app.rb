@@ -17,4 +17,5 @@ end
 
 get '/feed_data' do
     ParseHtml.new
+    erb :feed_data
 end
