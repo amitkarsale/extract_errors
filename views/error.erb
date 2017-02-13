@@ -1,9 +1,16 @@
-<h3>All Errors</h3>
-<ul>
-<% @models.each do |model| %>
-	<li>
-		<%= model.name %>
-	</li>
-<% end %>
-</ul>
-<a href="/">Back to Home</a>
+<a href="/">Show all</a>
+<p></p>
+<table>
+	<tr>
+		<th>Message</th>
+		<th>Occurances</th>
+	</tr>
+	<% @errors.each do |error| %>
+		<tr>
+			<% if error[0]  %>
+				<td><i><%= error[0] %></i></td>
+				<td><%= error[1] %></td>
+			<% end %>
+		</tr>
+	<% end %>
+</table>
