@@ -1,0 +1,15 @@
+<h3>Error Logs:</h3>
+<table>
+	<tr>
+		<th>Case Number</th>
+		<th>Message</th>
+		<th>Occured at</th>
+	</tr>
+	<% @errors.each do |error| %>
+		<tr>
+			<td><%= error.case_number %></td>
+			<td><i><%= error.message %></i></td>
+			<td><%= error.occured_at %></td>
+		</tr>
+	<% end %>
+</table>
