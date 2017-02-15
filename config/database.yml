@@ -1,7 +1,15 @@
 development:
   adapter: mysql2
   encoding: utf8
-  database: error_reporting
+  database: kcsdw_2
   host: localhost
   username: root
   password: root
+
+  # development:
+  # adapter: mysql2
+  # encoding: utf8
+  # database: error_reporting
+  # host: localhost
+  # username: root
+  # password: root
