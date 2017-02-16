@@ -6,7 +6,6 @@ require 'pry'
 class ExtractData
 
 	def initialize
-		binding.pry
 		@task_cases = FileAttachment.select("casenumber").where("name like '%task-export%'")
 		extract_case_attachment
 	end

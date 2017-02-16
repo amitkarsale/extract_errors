@@ -9,8 +9,8 @@ class ParseHtml
 
 	def initialize(path, case_no)
 		# for f in ~/tmp/task-export/*; do tar xf $f; done
-		
-		index_page = Nokogiri::HTML(open(path + "/index.html"))
+		@base_path = path
+		index_page = Nokogiri::HTML(open(@base_path + "/index.html"))
 		tablerows = index_page.css('tr')
 		@case_no = case_no
 		@files_to_parse = []
@@ -34,7 +34,7 @@ class ParseHtml
 	def extract_error_msg
 		@files_to_parse.each do |file|
 			begin
-				task = Nokogiri::HTML(open("/home/akarsale/Downloads/task-export-1485457064/tmp/task-export20170126-41886-cy5u04/"+file))
+				task = Nokogiri::HTML(open(@base_path +"/"+ file))
 				@error_msgs << task.xpath('//ul[@class="plan-step"]/li/div[@class="action"]/pre').last.children.first.text.split(/\n{2}|\n\/opt/)[0]
 			rescue
 				next
