@@ -35,9 +35,12 @@ class ExtractData
 			pwd = Dir.pwd
 			files = Dir.glob "task-export*"
 			files.each do |file|
-				binding.pry
-				system("for f in ~/tmp/task-export/*; do tar xf $f; done;")
-
+				path  = pwd + "/" + file
+				system("for f in #{path}; do tar xf $f; done;")
+				dir_path = Dir.glob "tmp/*"
+				extract_path = pwd +"/"+ dir_path[0]
+				ParseHtml.new(extract_path, kase_number)
+				system("rm -rf #{extract_path}; rm -rf #{file}")
 			end
 		end
 	end

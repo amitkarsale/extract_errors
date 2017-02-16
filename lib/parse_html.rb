@@ -7,18 +7,12 @@ require 'pry'
 
 class ParseHtml
 
-	def initialize
+	def initialize(path, case_no)
 		# for f in ~/tmp/task-export/*; do tar xf $f; done
-		Dir.chdir("/home/akarsale/tmp/task-export")
-		pwd = Dir.pwd
-		files = Dir.glob "task-export*"
-		files.each do |file|
-			tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(pwd + file))
-
-		end
-		index_page = Nokogiri::HTML(open("~/tmp/task-export/task-export-1485457064/tmp/task-export20170126-41886-cy5u04/index.html"))
+		
+		index_page = Nokogiri::HTML(open(path + "/index.html"))
 		tablerows = index_page.css('tr')
-		@case_no = "41886"
+		@case_no = case_no
 		@files_to_parse = []
 		@occured_at = []
 		@error_msgs = []
