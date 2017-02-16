@@ -16,7 +16,9 @@ class ExtractData
 			kase_number = "0" + kase.casenumber
 			case_split = kase_number.scan(/.{3}/)
 			if case_split[1].to_i  <= 600
-				system("cp /home/akarsale/cases/#{case_split[0]}/#{case_split[1]}/#{case_split[2]}/attachments/task-export* /tmp")
+				system("mkdir -p ~/tmp/task-export; 
+					cp ~/cases/#{case_split[0]}/#{case_split[1]}/#{case_split[2]}/attachments/task-export* ~/tmp/task-export;
+					for f in ~/tmp/task-export/*; do tar xf $f; done; ")
 			else
 				case_split1 = case_split[1].scan(/.{1}/); case_split2 = case_split[2].scan(/.{1}/)
 				secondary_split = case_split1 + case_split2
@@ -24,7 +26,18 @@ class ExtractData
 				secondary_split.each do |i|
 					path += "#{i}/"
 				end
-				system("cp /home/akarsale/cases/#{case_split[0]}/#{path}/attachments/task-export* /tmp")
+				system("mkdir -p /tmp/task-export; 
+					cp ~/cases/#{case_split[0]}/#{path}/attachments/task-export* ~/tmp/task-export;
+					 ")
+			end
+
+			Dir.chdir("/home/akarsale/tmp/task-export")
+			pwd = Dir.pwd
+			files = Dir.glob "task-export*"
+			files.each do |file|
+				binding.pry
+				system("for f in ~/tmp/task-export/*; do tar xf $f; done;")
+
 			end
 		end
 	end

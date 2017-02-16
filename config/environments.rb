@@ -8,7 +8,7 @@ configure :production, :development do
 			:host     => db.host,
 			:username => db.user,
 			:password => db.password,
-			:database => 'kcsdw_2',
+			:database => 'error_reporting',
 			:encoding => 'utf8'
 	)
 end

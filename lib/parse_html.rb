@@ -1,12 +1,22 @@
 #!/usr/bin/env ruby
 require 'open-uri'
 require 'nokogiri'
+require 'rubygems/package'
+require 'zlib'
 require 'pry'
 
 class ParseHtml
 
 	def initialize
-		index_page = Nokogiri::HTML(open("/home/akarsale/Downloads/task-export-1485457064/tmp/task-export20170126-41886-cy5u04/index.html"))
+		# for f in ~/tmp/task-export/*; do tar xf $f; done
+		Dir.chdir("/home/akarsale/tmp/task-export")
+		pwd = Dir.pwd
+		files = Dir.glob "task-export*"
+		files.each do |file|
+			tar_extract = Gem::Package::TarReader.new(Zlib::GzipReader.open(pwd + file))
+
+		end
+		index_page = Nokogiri::HTML(open("~/tmp/task-export/task-export-1485457064/tmp/task-export20170126-41886-cy5u04/index.html"))
 		tablerows = index_page.css('tr')
 		@case_no = "41886"
 		@files_to_parse = []
