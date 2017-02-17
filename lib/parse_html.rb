@@ -16,6 +16,8 @@ class ParseHtml
 		@files_to_parse = []
 		@occured_at = []
 		@error_msgs = []
+		columns = ['message', 'occured_at', 'case_number']
+		values = []
 		parse_index(tablerows)
 	end
 
@@ -40,16 +42,14 @@ class ParseHtml
 				next
 			end
 		end
-			@error_msgs.each_with_index do |error,i|
-				@error = Error.new("message" => error, "occured_at" => @occured_at[i], "case_number" => @case_no)
-				status = "Parsed Successfully"
-				if @error.save
-					next
-				else
-					status = "Parsing Failed"
-				end
-				status
-			end
+			insert_messages
+	end
+
+	def insert_messages
+		cases = ["#{@case_no}"] * @error_msgs.length
+		values = @error_msgs.zip @occured_at, cases
+
+		Error.import columns, values
 	end
 end
 
