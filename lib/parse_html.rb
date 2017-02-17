@@ -16,8 +16,8 @@ class ParseHtml
 		@files_to_parse = []
 		@occured_at = []
 		@error_msgs = []
-		columns = ['message', 'occured_at', 'case_number']
-		values = []
+		@columns = ['message', 'occured_at', 'case_number']
+		@values = []
 		parse_index(tablerows)
 	end
 
@@ -47,9 +47,9 @@ class ParseHtml
 
 	def insert_messages
 		cases = ["#{@case_no}"] * @error_msgs.length
-		values = @error_msgs.zip @occured_at, cases
+		@values = @error_msgs.zip @occured_at, cases
 
-		Error.import columns, values
+		Error.import @columns, @values
 	end
 end
 
