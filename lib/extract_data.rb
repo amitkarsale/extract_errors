@@ -6,7 +6,7 @@ require 'pry'
 class ExtractData
 
 	def initialize
-		@task_cases = FileAttachment.select("casenumber").where("name like '%task-export%'")
+		@task_cases = FileAttachment.select("casenumber").where("name like '%task-export%'").limit(25)
 		extract_case_attachment
 	end
 
@@ -41,6 +41,7 @@ class ExtractData
 				ParseHtml.new(extract_path, kase_number)
 				system("rm -rf #{extract_path}; rm -rf #{file}")
 			end
+			# ParseHtml.new("/home/akarsale/tmp/task-export/tmp/task-export20150130-9712-10frkd0", "01193044")
 		end
 	end
 

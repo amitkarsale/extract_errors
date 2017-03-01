@@ -1,6 +1,6 @@
 <a href="?filter=uniq">Show uniq messages</a>
 <p></p>
-<table>
+<table cellspacing="10">
 	<tr>
 		<th>Case Number</th>
 		<th>Message</th>
@@ -8,7 +8,7 @@
 	</tr>
 	<% @errors.each do |error| %>
 		<tr>
-			<td><%= error.case_number %></td>
+			<td align="left"><a href="https://access.redhat.com/support/cases/#/case/<%= error.case_number %>" target="_blank"><%= error.case_number %></a></td>
 			<td align="center"><i><%= error.message %></i></td>
 			<td align="center"><%= error.occured_at %></td>
 		</tr>

@@ -3,6 +3,9 @@ require 'open-uri'
 require 'nokogiri'
 require 'rubygems/package'
 require 'zlib'
+require 'active_record'
+require "activerecord-import/base"
+  ActiveRecord::Import.require_adapter('mysql2')
 require 'pry'
 
 class ParseHtml
@@ -11,6 +14,7 @@ class ParseHtml
 		# for f in ~/tmp/task-export/*; do tar xf $f; done
 		@base_path = path
 		index_page = Nokogiri::HTML(open(@base_path + "/index.html"))
+		# index_page = Nokogiri::HTML(open("/home/akarsale/Downloads/tasks-exports/task-export-1415797446/tmp/task-export20141112-11428-f0tuih/index.html"))
 		tablerows = index_page.css('tr')
 		@case_no = case_no
 		@files_to_parse = []
@@ -27,7 +31,7 @@ class ParseHtml
 			data_length = tabledatas.length
 			if tabledatas[data_length - 1].children.text == "error"
 				@files_to_parse << tabledatas[0].children[0].attributes["href"].value
-				@occured_at << tabledatas[1].children[0].text
+				@occured_at << DateTime.parse(tabledatas[1].children[0].text).to_time.strftime("%F %T")
 			end
 		end
 		extract_error_msg
@@ -48,7 +52,6 @@ class ParseHtml
 	def insert_messages
 		cases = ["#{@case_no}"] * @error_msgs.length
 		@values = @error_msgs.zip @occured_at, cases
-
 		Error.import @columns, @values
 	end
 end

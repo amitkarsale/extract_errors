@@ -5,11 +5,12 @@
 		<th>Message</th>
 		<th>Occurances</th>
 	</tr>
+
 	<% @errors.each do |error| %>
 		<tr>
 			<% if error[0]  %>
-				<td><i><%= error[0] %></i></td>
-				<td><%= error[1] %></td>
+				<td align="left"><a href='?message=<%=h CGI.escape(error[0]) %>'><i><%=h error[0] %></i></a></td>
+				<td align="center"><%= error[1] %></td>
 			<% end %>
 		</tr>
 	<% end %>
