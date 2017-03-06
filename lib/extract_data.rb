@@ -40,10 +40,8 @@ class ExtractData
 				system("for f in #{file}; do tar xf $f --directory #{pwd}; done;")
 				dir_path = Dir.glob pwd + "/tmp/*"
 				extract_path = dir_path[0]
-				binding.pry
 				ParseHtml.new(extract_path, kase_number)
 				FileUtils.rm_rf("#{extract_path}")
-				# system("rm -rf #{extract_path}; rm -rf #{file}")
 			end
 		end
 	end

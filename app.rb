@@ -34,5 +34,14 @@ get '/feed_data' do
 end
 
 get '/extract_data' do
-    ExtractData.new
+	child_pid = Process.fork do
+    	ExtractData.new
+    	sleep 10
+    	Process.exit
+  	end
+  
+  	Process.detach child_pid # No zombie process
+  
+  	erb :extract_data
+    
 end

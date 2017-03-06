@@ -11,10 +11,8 @@ require 'pry'
 class ParseHtml
 
 	def initialize(path, case_no)
-		# for f in ~/tmp/task-export/*; do tar xf $f; done
 		@base_path = path
 		index_page = Nokogiri::HTML(open(@base_path + "/index.html"))
-		# index_page = Nokogiri::HTML(open("/home/akarsale/Downloads/tasks-exports/task-export-1415797446/tmp/task-export20141112-11428-f0tuih/index.html"))
 		tablerows = index_page.css('tr')
 		@case_no = case_no
 		@files_to_parse = []
