@@ -4,7 +4,7 @@ require 'nokogiri'
 require 'rubygems/package'
 require 'zlib'
 require 'active_record'
-require "activerecord-import/base"
+require 'activerecord-import/base'
   ActiveRecord::Import.require_adapter('mysql2')
 require 'pry'
 
@@ -12,7 +12,7 @@ class ParseHtml
 
 	def initialize(path, case_no)
 		@base_path = path
-		index_page = Nokogiri::HTML(open(@base_path + "/index.html"))
+		index_page = Nokogiri::HTML(open(@base_path + '/index.html'))
 		tablerows = index_page.css('tr')
 		@case_no = case_no
 		@files_to_parse = []
@@ -27,9 +27,9 @@ class ParseHtml
 		tablerows.each do |tr|
 			tabledatas = tr.children
 			data_length = tabledatas.length
-			if tabledatas[data_length - 1].children.text == "error"
-				@files_to_parse << tabledatas[0].children[0].attributes["href"].value
-				@occured_at << DateTime.parse(tabledatas[1].children[0].text).to_time.strftime("%F %T")
+			if tabledatas[data_length - 1].children.text == 'error'
+				@files_to_parse << tabledatas[0].children[0].attributes['href'].value
+				@occured_at << DateTime.parse(tabledatas[1].children[0].text).to_time.strftime('%F %T')
 			end
 		end
 		extract_error_msg
@@ -38,7 +38,7 @@ class ParseHtml
 	def extract_error_msg
 		@files_to_parse.each do |file|
 			begin
-				task = Nokogiri::HTML(open(@base_path +"/"+ file))
+				task = Nokogiri::HTML(open(@base_path +'/'+ file))
 				@error_msgs << task.xpath('//ul[@class="plan-step"]/li/div[@class="action"]/pre').last.children.first.text.split(/\n{2}|\n\/opt/)[0]
 			rescue
 				next
